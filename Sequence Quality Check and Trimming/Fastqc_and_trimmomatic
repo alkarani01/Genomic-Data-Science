@@ -1,0 +1,62 @@
+*NGS Pipeline in LINUX platform*
+*Copy fastq file in the folder of your computer*
+
+*sample forward read file*
+mycoplasma_pneumomiae_F_100K.fastq 
+
+*sample reverse read file*
+mycoplasma_pneumomiae_R_100K.fastq
+
+*read file in terminal linux*
+less mycoplasma_pneumomiae_F_100K.fastq 
+
+*install fastqc in terminal*
+sudo apt install fastqc
+
+*install trimmomatic in terminal online*
+
+*Start with qulity control of the sample sequences*
+
+fastqc -h
+mkdir fastqc-raw
+ls -l
+
+fastqc -o fastqc-raw mycoplasma_pneumomiae_F_100K.fastq mycoplasma_pneumomiae_R_100K.fastq 
+
+cd fastqc-raw 
+
+*4 new files in output folder
+mycoplasma_pneumomiae_F_100K_fastqc.html
+mycoplasma_pneumomiae_F_100K_fastqc.zip
+mycoplasma_pneumomiae_R_100K_fastqc.html
+mycoplasma_pneumomiae_R_100K_fastqc.zip *
+
+* Open html file analyse the sequence quality*
+
+*Now the sequnces will be trimmed using trommomatic*
+*download all adapters and combine them in one file (sample all_adapters.fa) and put in same folder*
+
+mkdir trimmomatic-out
+
+trimmomatic PE mycoplasma_pneumomiae_F_100K.fastq mycoplasma_pneumomiae_R_100K.fastq ./trimmomatic-out/mycoplasma_pneumomiae_F_Paired_100K.fastq ./trimmomatic-out/mycoplasma_pneumomiae_F_Unpaired_100K.fastq ./trimmomatic-out/mycoplasma_pneumomiae_R_Paired_100K.fastq ./trimmomatic-out/mycoplasma_pneumomiae_R_Unpaired_100K.fastq ILLUNIACLIP:all_adapters.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:50 CROP:240 HEADCROP:10 
+
+*4 Output files will be created*
+
+cd trimmomatic-out
+ls -l
+
+*Now check the quality of the trimmed sequeces again using fastqc*
+
+mkdir fastqc-trimmomatic
+fastqc -o fast-trimmomatic ./*fastq
+
+*New output files will be created html and zip*
+ls -lhrt
+cd fastqc-trimmomatic/
+ls -lhrt
+* Open the html files and check for the improved quality*
+
+
+
+
+
