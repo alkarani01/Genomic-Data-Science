@@ -1,0 +1,97 @@
+*Genome Assembly*
+
+*Install SPADes software in the terminal*
+*Install QUAST in the terminal and dependencies matplotib etc*
+
+sudo apt install spades
+
+sudo apt inatall quast
+
+spades .py -h
+spades .py --test
+
+ls -l
+
+*Use output obtained from trimming of reads*
+
+*try assembly with default kmer values*
+spades.py -1 mycoplasma_pneumomiae_F_Paired_100K.fastq -2 mycoplasma_pneumomiae_R_Paired_100K.fastq -s mycoplasma_pneumomiae_F_Unpaired_100K.fastq -s mycoplasma_pneumomiae_R_Unpaired_100K.fastq 
+-o assembly-spades -t 4
+
+*try assembly with defined kmer values odd numbers*
+spades.py -1 mycoplasma_pneumomiae_F_Paired_100K.fastq -2 mycoplasma_pneumomiae_R_Paired_100K.fastq -s mycoplasma_pneumomiae_F_Unpaired_100K.fastq -s mycoplasma_pneumomiae_R_Unpaired_100K.fastq 
+-o assembly-spades_1 -t 4 -k 35,55,75,95,105,115,127
+
+*output will be saved in output folder*
+*compare both outputs*
+
+cd assembly-spades
+ls -lhrt
+cd corrected/
+
+*mycoplasma_pneumomiae_F_Paired_100K.00.0_0.cor.fastq.gz compressed files in corrected folder*
+
+zcat mycoplasma_pneumomiae_F_Paired_100K.00.0_0.cor.fastq.gz
+
+* The changes can be seen at the end of the sequences by change number and BH ok with no change*
+
+less corrected.yaml
+
+cd ..
+ls -lhrt
+
+
+*assembly obtained file and check coverage*
+
+less contigs.fasta
+
+less scaffolds.fasta
+
+*check the parameters used and can be changes*
+less spades.log
+
+cd..
+ls -lhrt
+
+*check for the output quality
+
+cd trimmomatic.out/
+ls -lhrt
+cp assembly-spades/
+cp assembly-spades/contigs.fasta default-K.fasta
+cp assembly-spades_1/contigs.fasta deined-K.fasta
+ls -lhrt
+
+*Use these files to check for quality of assembly in quast in conda*
+
+conda info --envs
+conda activate quast
+ls -l
+quast -h
+*mycoplasma_pneumomiae_strain_11-1384.fna reference genome must be downloaded*
+
+quast -o quast-analysis -r
+mycoplasma_pneumomiae_strain_11-1384.fna -m 200 --threads 4 default-K.fasta defined-K.fasta
+
+cd quast-analysis/
+ls -lhrt
+*ouput files can be found in the folder*
+*Open the html files to check for the quality report.html*
+
+*The assembly obtained from defined Kmer and default Kmer outputs in the QUAST*
+
+*The output from different assembly software can also be compared with QUAST*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
