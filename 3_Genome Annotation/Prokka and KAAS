@@ -1,0 +1,67 @@
+*Genome annotation in prokka*
+
+conda install -c conda-forge -c bioconda -c defaults Prokka
+
+ls -l
+
+*Use the outfile from the genome assembly analysis in SPAdes*
+
+less defined.fasta
+
+*look for the smallest contig length*
+
+prokka -h
+prokka --listdb
+
+*will show all the available databases*
+*Make an output directory and select other parameters*
+
+prokka --outdir prokka_annotation --prefix mycoplasma --genus Mycoplasma --species pneumoniae --strain unk1 --mincontiglen 200 --cpus 4 defined.fasta
+
+
+cd prokka_annotation/
+ls -lhrt
+
+*all the output files will be there with prefix mycoplasma*
+
+less mycoplasma.fna		*Nucleotide*
+less mycoplasma.gff
+less mycoplasma.ffn		
+less mycoplasma.faa  	*amino acid*
+less mycoplasma.gbk		*All the CDSs*
+less mycoplasma.sqn		*Can be submited to NCBI*
+less mycoplasma.tsv		
+
+*Other analysis is Prodigal for open reading grames in prokarytotic genomes*
+*output file names can be assigned as protein.faa and nucleotide.fna*
+
+cd ..
+prodigal -h
+prodigal -i defined.fasta -a protein.faa -d neucletide.fna 
+
+*Output files in the same directory*
+*No annotation just protein seq*
+ls -l 
+less protein.faa 		
+less nucleotide.fna
+
+*This can be used in KAAS server for annotation using KEGG database*
+*Prokka output can also be used in KAAS server*
+*Output can be downloaded in html format*
+*Functional pathways assigments can be observed in the output*
+
+*KAAS output with gene loci can be used in KEGG Mapper pathway recontruction*
+
+*NCBI and RAST server can also be used gene annotation, it has online interfaces*
+
+
+
+
+
+
+
+
+
+
+
+
